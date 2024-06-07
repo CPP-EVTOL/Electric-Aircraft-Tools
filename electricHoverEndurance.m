@@ -9,10 +9,12 @@ mAh = 16000;%battery capacity in milliamp hours
 mBatt = 0.178;%battery mass in kg
 mEmpty = 14;%aircraft empty (no batt or payload) mass in kg
 mPayload = 3.5;%payload mass in kg
-C = 10;%battery C rating (1/hr)
-eta = 0.76;%total powertrain efficiency
-LDcruise = 6;%aircraft L/D in cruise
-Vcruise = 32;%aircraft cruise velocity in m/s
+C = 12;%battery C rating (1/hr)
+FOM = 0.6;%propeller static efficiency parameter
+eta = 0.85;%powertrain efficiency (excluding propeller, so esc only)
+Dia = 14;%propeller diameter in inches
+rho = 0.0021;%air density in slug/cu.ft
+nProps = 8;%number of vertical propellers
 parasiteDraw = 0.5;%amps drawn on the 5v psp bus at idle
 voltageCutoff = 3.2;%low voltage cutoff (per cell voltage)
 
@@ -39,25 +41,27 @@ U0 = Ufull+k+(Rc*I0)-A;
 mAhUsed = 0:0.1:mAh;
 UOC = U0-((k*Ccut)./(Ccut-mAhUsed))+A*exp(-B*mAhUsed);
 
-%calculate mass specific energy (W*hr/kg)
-Estar = Unom*I0/mBatt;
 mGross = mBatt+mEmpty+mPayload;
-T = (mGross*9.81)/LDcruise;%thrust in N
-Pout = T*Vcruise;%power actually delivered by propellers (W)
-Pin = Pout/eta;%power supplied to motors from the battery (W)
-Ptot = Pin+5*(parasiteDraw);%total power supplied from the battery (W)
+T = mGross*9.81;
+Ti = T/nProps;
 
-%Range calculated from Breguet range equation (more idealized):
-%This one assumes a constant voltage, does not consider current.
-Estar_SI = Estar*3600;
-R1 = Estar_SI*(1/9.81)*eta*LDcruise*(mBatt/mGross);
+%convert diameter in inches to radius in m
+R = (Dia/2)*0.0254;
+%convert air density to kg/cu.m
+rho = rho*515.379;
 
-%Range from 1d iterative calculation (more accurate):
-%This one accounts for voltage sag and uses a realistic discharge curve
-%for the battery.
+%find required power per propeller (W)
+%(See G&M pg.51 equation 8)
+Pout = Ti*sqrt((2*Ti)/(3.14159*rho))/(2*FOM*R);
+%find total required power to propellers (W)
+Pout = Pout*nProps;
+%find total required power from battery (W)
+Pin = Pout/eta;
+Ptot = Pin+5*parasiteDraw;
+
+%Get endurance from iterative calculation
 t = 0;
-x = 0;
-dt = 0.1;%timestep (sec)
+dt = 0.1;%timestep (seconds)
 Unow = Ufull;
 Cused = 0;
 Iplot = [];
@@ -85,7 +89,6 @@ while Unow > voltageCutoff*cells
     %update stuff
     dC = (Current*1000)*(dt/3600);
     Cused = Cused+dC;
-    x = x+(Vcruise*dt);
     t = t+dt;
     tPlot(ii) = t;
     Iplot(ii) = Current;
@@ -102,10 +105,5 @@ if currentLimit
     fprintf("  Warning: max battery current draw exceeded!\n")
 end
 
-R2 = x;
-R1mi = R1*6.2137e-4;
-R2mi = R2*6.2137e-4;
-
-fprintf("Range 1 ( Breguet ): %.2f m (%.2f mi)\nRange 2 (Iterative):" + ...
-    " %.2f m (%.2f mi)\nMax Current: %.2f A\n",R1,R1mi,R2,R2mi,Current);
-fprintf("Time: %.2f min\n\n",t/60);
+fprintf("Endurance: %.2f min\nMax Current: %.2f A\nVoltage " + ...
+    "Sag: %.2f V\n\n",t/60,Current,Usag)
