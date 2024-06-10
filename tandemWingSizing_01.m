@@ -61,6 +61,7 @@ Vs2 = 1.41421*sqrt(abs(L2)/(1.3*S2ft*rho));
 Vs1 = Vs1/1.46667;
 Vs2 = Vs2/1.46667;
 
+disp("  Tandem Wing Results:")
 fprintf("CL_cruise1: %.2f at %.2f deg\nCL_cruise2: %.2f at %.2f deg\nStall Speed: %.2f mph\n\n",CL1,ai1,CL2,ai2,max([Vs1,Vs2]))
 
 

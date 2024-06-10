@@ -98,6 +98,8 @@ while Unow > voltageCutoff*cells
 
 end
 
+disp("  Hover Endurance Results:")
+
 if sagLimit
     fprintf("  Warning: excessive voltage sag!\n")
 end

@@ -95,6 +95,8 @@ while Unow > voltageCutoff*cells
 
 end
 
+disp("  Cruise Range Results:")s
+
 if sagLimit
     fprintf("  Warning: excessive voltage sag!\n")
 end
