@@ -2,6 +2,9 @@
 clear
 format compact
 
+%This script estimates the hover endurance of a multirotor/vtol using
+%normal Lithium-Polymer batteries.
+
 %================================= INPUT ==================================
 
 cells = 6;%number of battery cells
@@ -16,7 +19,7 @@ Dia = 14;%propeller diameter in inches
 rho = 0.0021;%air density in slug/cu.ft
 nProps = 8;%number of vertical propellers
 parasiteDraw = 0.5;%amps drawn on the 5v psp bus at idle
-voltageCutoff = 3.2;%low voltage cutoff (per cell voltage)
+voltageCutoff = 3.2;%low voltage cutoff (voltage per cell)
 
 %==========================================================================
 
@@ -77,7 +80,7 @@ while Unow > voltageCutoff*cells
     Unow = U0-((k*Ccut)./(Ccut-Cused))+A*exp(-B*Cused);
     
     Current = Ptot/Unow;
-    %account for voltage sag
+    %account for voltage sag using battery internal resistance
     Usag = Current*Rc;
     Current = Ptot/(Unow-Usag);
     if Usag > 0.2*cells

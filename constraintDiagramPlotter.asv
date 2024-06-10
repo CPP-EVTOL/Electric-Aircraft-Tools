@@ -11,8 +11,7 @@ format compact
 
 %Many of the input parameters for this script are unknown during early
 %conceptual design, so you must use either an "educated guess" or values
-%from a similar aircraft, and then change them later. It's an iterative
-%process.
+%from a similar aircraft, and then change
 
 %================================= INPUT ==================================
 

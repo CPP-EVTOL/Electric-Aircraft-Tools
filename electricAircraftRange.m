@@ -2,6 +2,9 @@
 clear
 format compact
 
+%This script estimates the cruise range of a UAV or electric aircraft using
+%normal Lithium-Polymer batteries.
+
 %================================= INPUT ==================================
 
 cells = 6;%number of battery cells
