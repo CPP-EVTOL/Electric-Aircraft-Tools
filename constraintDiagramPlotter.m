@@ -49,7 +49,7 @@ CdLDG = 0.008;%CD during ground roll
 muLAND = 0.5;%ground friction during braking
 TgrW = 0;%thrust to weight during ground roll (~0 for idle)
 tbrake = 0;%reaction time before braking seconds
-WS = 4:0.1:20;%wing loading psf (range of values to plot)
+WS = 2:0.1:20;%wing loading psf (range of values to plot)
 
 %==========================================================================
 
@@ -109,11 +109,11 @@ plot(WS,TW_ROC)
 title("Constraint Diagram")
 xlabel("W/S (psf)")
 ylabel("T/W")
-legend('Example points','Takeoff','climb angle','turn','max speed','ceiling','landing ground roll','climb rate')
 xlim([min(WS),max(WS)])
-ylim([0,0.7])
+ylim([0,1])
 [x,y] = ginput(1);
 plot(x,y,'r+')
+legend('Example points','Takeoff','climb angle','turn','max speed','ceiling','landing ground roll','climb rate','design point')
 
 disp("  Constraint Diagram Results:")
 fprintf("W/S: %.2f psf\nT/W: %.2f\n\n",x,y)
