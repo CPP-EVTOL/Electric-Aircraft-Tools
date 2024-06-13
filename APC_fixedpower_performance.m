@@ -6,6 +6,8 @@ format compact
 %PER3_yourProp.DAT
 %available here: https://www.apcprop.com/technical-information/performance-data/
 
+%================================= INPUT ==================================
+
 dataFile = "PER3_15x10E.dat";
 powerStep = 0.2; %used for plotting only
 RPM_MAX = 10000;

@@ -6,6 +6,8 @@ format compact
 %PER2_STATIC-2.DAT
 %available here: https://www.apcprop.com/technical-information/performance-data/
 
+%================================= INPUT ==================================
+
 prop = "15x10E";
 plotting = true;
 
