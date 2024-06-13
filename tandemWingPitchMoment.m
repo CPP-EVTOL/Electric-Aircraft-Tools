@@ -26,18 +26,18 @@ ai1 = 3.8;%incidence, degrees
 ai2 = 1.7;%incidence, degrees
 %Control surface locations (semispan startpoints as a coefficient
 %from 0 to 1 of the semispan
-bCS1 = 0.5;
-bCS2 = 0.5;
+bCS1 = 0.31;
+bCS2 = 0.41;
 %Control surface deflections (degrees, positive is TE up) +-45 degrees MAX
-dE1 = -15;
-dE2 = 10;
+dE1 = -30;
+dE2 = 30;
 %airfoil characteristics (2D, degrees and degrees^-1)
 CLmax = 1.78;
 aStall = 18;
 aZL = -1.2;
 CLa = 0.104;
 %other parameters
-Vinf = 80;%ft/s
+Vinf = 105;%ft/s
 rho = 0.00238;%slug/cu.ft
 
 %==========================================================================
@@ -89,7 +89,8 @@ Souter2 = (Chord2(bCS2)+lambda2*CR2)*0.5*(1-bCS2)*(b2);
 M1plot = [];
 M2plot = [];
 aPlot = [];
-Lplot = [];
+L1plot = [];
+L2plot = [];
 for a = -5:0.1:max([aStall1,aStall2])
     alpha1 = a+ai1;
     alpha2 = a+ai2;
@@ -112,7 +113,8 @@ for a = -5:0.1:max([aStall1,aStall2])
     M1plot = [M1plot,M1];
     M2plot = [M2plot,M2];
     aPlot = [aPlot,a];
-    Lplot = [Lplot,L1+L2];
+    L1plot = [L1plot,L1];
+    L2plot = [L2plot,L2];
     
 end
 
@@ -133,6 +135,7 @@ ylabel("Pitching Moment (in*lbf)")
 title("Pitching Moment vs alpha")
 
 subplot(1,2,2)
+Lplot = L1plot+L2plot;
 CLplot = Lplot/(q*(S1+S2));
 plot(aPlot,CLplot)
 xlabel("Alpha (Degrees)")
@@ -141,9 +144,10 @@ grid on
 xlim([min(aPlot),min([aStall1,aStall2,aStall])])
 title("Lift Coefficient vs alpha")
 
-disp("  Pitching Moment Results")
+disp("  Pitching Moment Results:")
 fprintf("Trimpoint at alpha: %.2f degrees\n",aPlot(tpIndex))
 fprintf("Trimpoint CL: %.3f (%.2f lbf of lift)\n",CLplot(tpIndex),Lplot(tpIndex))
+fprintf("(L1: %.2f lbf, L2: %.2f lbf)\n",L1plot(tpIndex),L2plot(tpIndex))
 
 if (Mplot(end)<Mplot(1))
     fprintf("Acft is statically stable\n\n")
