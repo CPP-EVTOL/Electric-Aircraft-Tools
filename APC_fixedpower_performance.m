@@ -8,7 +8,7 @@ format compact
 
 %================================= INPUT ==================================
 
-dataFile = "PER3_15x10E.dat";
+dataFile = "PER3_18x10E.dat";
 powerStep = 0.2; %used for plotting only
 RPM_MAX = 10000;
 plotting = true;

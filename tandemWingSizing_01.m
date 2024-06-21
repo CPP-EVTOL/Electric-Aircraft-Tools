@@ -12,13 +12,13 @@ format compact
 
 tgtVht = 0.67;%target equivalent horizontal tail volume
 tgtVvt = 0.06;%target vertical tail volume
-S = 1840;%total wing area in square inches
+S = 1850;%total wing area in square inches
 x1 = 11.0625;%wing 1 quarter chord location inches
 x2 = 66.0625;%wing 2 quarter chord location inches
 xvt = 81;%vertical tail quarter chord location inches
-xcg = 39;%target cg location inches
+xcg = 40;%target cg location inches
 MAC = 16;%sum of the MAC's from wings 1 and 2   
-W = 25;%lbf weight
+W = 40;%lbf weight
 v = 60;%mph trim airspeed
 rho = 0.002;%slug/cu.ft air density
 CLa = 6;% CL vs alpha slope (rad^-1);

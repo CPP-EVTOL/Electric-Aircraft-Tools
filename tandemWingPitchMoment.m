@@ -13,32 +13,32 @@ format compact
 
 %Wing locations, cg location (inches)
 x1 = 11;
-x2 = 61;
-xcg = 38.5;
+x2 = 66;
+xcg = 40;
 %Wing dimensions (inches)
-b1 = 57.6;%TOTAL span
-b2 = 88.4;%TOTAL span
-CR1 = 12;%root chord
-CR2 = 19.6;%tip chord
+b1 = 45.5;%TOTAL span
+b2 = 88.5;%TOTAL span
+CR1 = 14.22;%root chord
+CR2 = 19.99;%tip chord
 lambda1 = 0.6;
 lambda2 = 0.5;
-ai1 = 3.8;%incidence, degrees
-ai2 = 1.7;%incidence, degrees
+ai1 = 6.52;%incidence, degrees
+ai2 = 2.8;%incidence, degrees
 %Control surface locations (semispan startpoints as a coefficient
 %from 0 to 1 of the semispan
-bCS1 = 0.31;
-bCS2 = 0.41;
+bCS1 = 0.2;
+bCS2 = 0.5;
 %Control surface deflections (degrees, positive is TE up) +-45 degrees MAX
 dE1 = -30;
 dE2 = 30;
 %airfoil characteristics (2D, degrees and degrees^-1)
 CLmax = 1.78;
-aStall = 18;
+aStall = 15;
 aZL = -1.2;
 CLa = 0.104;
 %other parameters
-Vinf = 105;%ft/s
-rho = 0.00238;%slug/cu.ft
+Vinf = 88;%ft/s
+rho = 0.0023;%slug/cu.ft
 
 %==========================================================================
 
@@ -118,7 +118,7 @@ for a = -5:0.1:max([aStall1,aStall2])
     
 end
 
-subplot(1,2,1)
+%subplot(1,2,1)
 Mplot = M1plot+M2plot;
 [tpMoment,tpIndex] = min(abs(Mplot));
 plot(aPlot,Mplot,'k')
@@ -134,6 +134,7 @@ xlabel("Alpha (degrees)")
 ylabel("Pitching Moment (in*lbf)")
 title("Pitching Moment vs alpha")
 
+%{
 subplot(1,2,2)
 Lplot = L1plot+L2plot;
 CLplot = Lplot/(q*(S1+S2));
@@ -148,7 +149,7 @@ disp("  Pitching Moment Results:")
 fprintf("Trimpoint at alpha: %.2f degrees\n",aPlot(tpIndex))
 fprintf("Trimpoint CL: %.3f (%.2f lbf of lift)\n",CLplot(tpIndex),Lplot(tpIndex))
 fprintf("(L1: %.2f lbf, L2: %.2f lbf)\n",L1plot(tpIndex),L2plot(tpIndex))
-
+%}
 if (Mplot(end)<Mplot(1))
     fprintf("Acft is statically stable\n\n")
 else

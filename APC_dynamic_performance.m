@@ -8,7 +8,7 @@ format compact
 
 %================================= INPUT ==================================
 
-dataFile = "PER3_15x10E.dat";
+dataFile = "PER3_18x10E.dat";
 RPM = 8000;
 plotting = true;
 

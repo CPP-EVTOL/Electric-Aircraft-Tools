@@ -8,14 +8,14 @@ format compact
 %================================= INPUT ==================================
 
 cells = 6;%number of battery cells
-mAh = 16000;%battery capacity in milliamp hours
-mBatt = 0.178;%battery mass in kg
-mEmpty = 14;%aircraft empty (no batt or payload) mass in kg
+mAh = 10000;%battery capacity in milliamp hours
+mBatt = 2.5;%battery mass in kg
+mEmpty = 16;%aircraft empty (no batt or payload) mass in kg
 mPayload = 3.5;%payload mass in kg
-C = 10;%battery C rating (1/hr)
-eta = 0.76;%total powertrain efficiency
-LDcruise = 6;%aircraft L/D in cruise
-Vcruise = 32;%aircraft cruise velocity in m/s
+C = 70;%battery C rating (1/hr)
+eta = 0.74*0.85;%total powertrain efficiency
+LDcruise = 10;%aircraft L/D in cruise
+Vcruise = 88;%aircraft cruise velocity in m/s
 parasiteDraw = 0.5;%amps drawn on the 5v psp bus at idle
 voltageCutoff = 3.2;%low voltage cutoff (per cell voltage)
 
@@ -98,7 +98,7 @@ while Unow > voltageCutoff*cells
 
 end
 
-disp("  Cruise Range Results:")s
+disp("  Cruise Range Results:")
 
 if sagLimit
     fprintf("  Warning: excessive voltage sag!\n")

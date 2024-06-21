@@ -7,17 +7,17 @@ format compact
 
 %================================= INPUT ==================================
 
-cells = 6;%number of battery cells
-mAh = 16000;%battery capacity in milliamp hours
-mBatt = 0.178;%battery mass in kg
-mEmpty = 14;%aircraft empty (no batt or payload) mass in kg
+cells = 12;%number of battery cells
+mAh = 5000;%battery capacity in milliamp hours
+mBatt = 2.5;%battery mass in kg
+mEmpty = 16;%aircraft empty (no batt or payload) mass in kg
 mPayload = 3.5;%payload mass in kg
-C = 12;%battery C rating (1/hr)
-FOM = 0.6;%propeller static efficiency parameter
+C = 70;%battery C rating (1/hr)
+FOM = 0.75;%propeller static efficiency parameter
 eta = 0.85;%powertrain efficiency (excluding propeller, so esc only)
-Dia = 14;%propeller diameter in inches
+Dia = 22;%propeller diameter in inches
 rho = 0.0021;%air density in slug/cu.ft
-nProps = 8;%number of vertical propellers
+nProps = 4;%number of vertical propellers
 parasiteDraw = 0.5;%amps drawn on the 5v psp bus at idle
 voltageCutoff = 3.2;%low voltage cutoff (voltage per cell)
 
